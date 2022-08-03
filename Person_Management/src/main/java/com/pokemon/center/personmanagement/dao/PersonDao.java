@@ -18,5 +18,9 @@ public class PersonDao {
     public Person authenticate(String email, String password){
         return personRepository.findPersonByPerEmailAndPerPasswordAndPerActiveIsTrue(email,password);
     }
+    public Person createPerson(Person person) {
+        return personRepository.save(person);
+    }
+
 
 }

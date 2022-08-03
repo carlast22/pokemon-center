@@ -1,8 +1,10 @@
 package com.pokemon.center.personmanagement.controller;
 
+import com.pokemon.center.persistence.Person;
 import com.pokemon.center.personmanagement.mapping.dto.PersonDTO;
 import com.pokemon.center.personmanagement.mapping.interfaces.PersonMapper;
 import com.pokemon.center.personmanagement.params.AuthParams;
+import com.pokemon.center.personmanagement.params.PersonParams;
 import com.pokemon.center.personmanagement.service.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,18 +24,25 @@ public class PersonController {
 
     //anotacion para peticiones de tipo GET con la ruta findById precedida por el requestMapping de la clase
     @GetMapping(value = "findById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PersonDTO findPersonById(@PathVariable(name = "id") int id){
-        PersonDTO personDTO = PersonMapper.INSTANCE.entityToDto( personService.findPersonById(id));
+    public PersonDTO findPersonById(@PathVariable(name = "id") int id) {
+        PersonDTO personDTO = PersonMapper.INSTANCE.entityToDto(personService.findPersonById(id));
         logger.info(personDTO.toString());
         return personDTO;
     }
 
     @PostMapping(value = "authenticate", produces = MediaType.APPLICATION_JSON_VALUE)
-    public PersonDTO authenticate(@RequestBody AuthParams authParams){
-        PersonDTO personDTO = PersonMapper.INSTANCE.entityToDto(personService.authenticate(authParams));
+    public PersonDTO authenticate(@RequestBody AuthParams authParams) {
+        Person person = personService.authenticate(authParams);
+        PersonDTO personDTO = PersonMapper.INSTANCE.entityToDto(person);
         return personDTO;
     }
 
+    @PostMapping(value = "create", produces = MediaType.APPLICATION_JSON_VALUE)
+    public PersonDTO createUser(@RequestBody PersonParams userToCreate) {
+        Person person = personService.createPerson(userToCreate);
+        PersonDTO personDTO = PersonMapper.INSTANCE.entityToDto(person);
+        return personDTO;
+    }
 
 
 }
