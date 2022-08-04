@@ -12,6 +12,12 @@ import java.util.List;
 @Transactional
 public interface PersonRepository extends JpaRepository<Person, Integer>, JpaSpecificationExecutor<Person> {
     Person findPersonByPerId(int id);
+
     List<Person> findAllByPerNameIgnoreCaseContains(String personName);
+
     Person findPersonByPerIdentification(String identification);
+
+    Person findPersonByPerIdAndPerRolIdRolId(int id, int rolId);
+
+    List<Person> findAllByPerNameIgnoreCaseContainsAndPerRolIdRolId(String personName, int rolId);
 }

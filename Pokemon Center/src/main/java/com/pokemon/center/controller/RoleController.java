@@ -21,8 +21,9 @@ public class RoleController {
 
     @GetMapping(value = "findAll", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<RoleDTO> findAll() {
-       return RoleMapper.INSTANCE.map(roleService.findAll());
+        return RoleMapper.INSTANCE.map(roleService.findAll());
     }
+
     @GetMapping(value = "findById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public RoleDTO findById(@PathVariable(name = "id") int roleID) {
         return RoleMapper.INSTANCE.entityToDto(roleService.findById(roleID));

@@ -19,5 +19,6 @@ public interface SymptomMapper {
 
     })
     SymptomDTO entityToDto(Symptom symptom);
+
     List<SymptomDTO> map(List<Symptom> symptoms);
 }

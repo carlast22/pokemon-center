@@ -2,8 +2,6 @@ package com.pokemon.center.controller;
 
 import com.pokemon.center.mapping.dto.PersonDTO;
 import com.pokemon.center.params.PersonParams;
-import com.pokemon.center.persistence.Person;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,11 +18,12 @@ class PersonControllerTest {
     PersonController personController;
 
 
-    int validId;
+    int validPersonId;
     String validName;
     String validLastName;
     String validEmail;
     String validIdentification;
+    int validRolId;
 
     @BeforeEach
     void initialize() {
@@ -39,18 +38,19 @@ class PersonControllerTest {
         userParams.setRolId(1);
 
         PersonDTO personDTO = personController.createUser(userParams);
-        validId = personDTO.getId();
+        validPersonId = personDTO.getId();
         validName = userParams.getName();
         validLastName = userParams.getLastName();
         validEmail = userParams.getEmail();
+        validRolId= userParams.getRolId();
     }
 
     @Test
     void whenValidPersonIdIsSubmittedThenThePersonShouldBeReturned(){
-        int id = this.validId;
+        int id = this.validPersonId;
         PersonDTO person = personController.findById(id);
         Assertions.assertEquals(this.validName, person.getName());
-        Assertions.assertEquals(this.validId, person.getId());
+        Assertions.assertEquals(this.validPersonId, person.getId());
         Assertions.assertEquals(this.validIdentification, person.getIdentification());
 
     }
@@ -133,6 +133,54 @@ class PersonControllerTest {
         Assertions.assertNotEquals(userParams.getEmail(), personDTO.getEmail());
     }
 
+    @Test
+    void whenValidPersonIdAndValidRoleIdAreSubmittedThenAPersonWithTheSpecifiedRoleShouldBeReturned(){
+        int personId = this.validPersonId;
+        int rolId =  this.validRolId;
+
+        PersonDTO personDTO = personController.findByPersonIdAndRoleId(personId, rolId);
+
+        Assertions.assertEquals(personId, personDTO.getId());
+        Assertions.assertEquals(rolId, personDTO.getRole().getId());
+
+    }
+
+    @Test
+    void whenValidPersonNameAndValidRoleIdAreSubmittedThenAPersonListWithTheSpecifiedRoleShouldBeReturned(){
+        String name = this.validName;
+        int rolId =  this.validRolId;
+
+        List<PersonDTO> personDTOList = personController.findByPersonNameAndRoleId(name, rolId);
+        for (PersonDTO personDTO : personDTOList ) {
+            Assertions.assertEquals(rolId, personDTO.getRole().getId());
+        }
+    }
+
+    @Test
+    void whenUnexistentPersonNameAndValidRoleIdAreSubmittedThenAEmptyPersonListShouldBeReturned(){
+        String name = "nombre falso 123";
+        int rolId =  this.validRolId;
+
+        List<PersonDTO> personDTOList = personController.findByPersonNameAndRoleId(name, rolId);
+        Assertions.assertTrue(personDTOList.isEmpty());
+
+    }
+
+    @Test
+    void whenValidPersonNameAndInvalidRoleIdAreSubmittedThenAEmptyPersonListShouldBeReturned(){
+        String name = this.validName;
+        int rolId =  -1;
+        List<PersonDTO> personDTOList = personController.findByPersonNameAndRoleId(name, rolId);
+        Assertions.assertTrue(personDTOList.isEmpty());
+    }
+
+    @Test
+    void whenEmptyPersonNameAndValidRoleIdAreSubmittedThenAEmptyPersonListShouldBeReturned(){
+        String name = "";
+        int rolId =  -1;
+        List<PersonDTO> personDTOList = personController.findByPersonNameAndRoleId(name, rolId);
+        Assertions.assertTrue(personDTOList.isEmpty());
+    }
 
     String generateRandomIdentification() {
         int length = 10;

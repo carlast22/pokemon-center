@@ -1,7 +1,6 @@
 package com.pokemon.center.service;
 
 import com.pokemon.center.dao.RoleDao;
-import com.pokemon.center.mapping.dto.RoleDTO;
 import com.pokemon.center.persistence.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

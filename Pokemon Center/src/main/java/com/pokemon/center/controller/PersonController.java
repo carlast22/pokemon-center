@@ -17,7 +17,7 @@ public class PersonController {
     @Autowired
     PersonService personService;
 
-    @GetMapping(value = "findById/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "findByPersonId/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public PersonDTO findById(@PathVariable(name = "id") int id) {
         return PersonMapper.INSTANCE.entityToDto(personService.findById(id));
     }
@@ -37,4 +37,13 @@ public class PersonController {
         return PersonMapper.INSTANCE.entityToDto(personService.createPerson(personToCreate));
     }
 
+    @GetMapping(value = "findByPersonIdAndRoleId/{id}/{rolId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public PersonDTO findByPersonIdAndRoleId(@PathVariable(name = "id") int personId, @PathVariable(name = "rolId") int rolId) {
+        return PersonMapper.INSTANCE.entityToDto(personService.findByPersonIdAndRoleId(personId, rolId));
+    }
+
+    @GetMapping(value = "findByPersonNameAndRoleId/{name}/{rolId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<PersonDTO> findByPersonNameAndRoleId(String name, int rolId) {
+        return PersonMapper.INSTANCE.map(personService.findByPersonNameAndRoleId(name, rolId));
+    }
 }

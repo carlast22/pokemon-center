@@ -62,4 +62,19 @@ public class PersonService {
 
         return person;
     }
+
+    public Person findByPersonIdAndRoleId(int personId, int rolId) {
+        if (null != roleService.findById(rolId)) {
+            return personDao.findByPersonIdAndRoleId(personId, rolId);
+        }
+        return null;
+    }
+
+    public List<Person> findByPersonNameAndRoleId(String name, int rolId) {
+        List<Person> personList = null;
+        if (!name.trim().isEmpty() && null != roleService.findById(rolId)) {
+            personList = personDao.findByPersonNameAndRoleId(name, rolId);
+        }
+        return personList;
+    }
 }

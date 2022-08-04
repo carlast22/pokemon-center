@@ -19,10 +19,12 @@ public interface PersonMapper {
             @Mapping(target = "identification", source = "perIdentification"),
             @Mapping(target = "email", source = "perEmail"),
             @Mapping(target = "dateOfBirth", source = "perDateOfBirth"),
+            @Mapping(target = "role.id", source = "perRolId.rolId"),
             @Mapping(target = "role.name", source = "perRolId.rolName"),
             @Mapping(target = "role.description", source = "perRolId.rolDescription")
     })
     PersonDTO entityToDto(Person orden);
+
     List<PersonDTO> map(List<Person> ordenes);
 }
 

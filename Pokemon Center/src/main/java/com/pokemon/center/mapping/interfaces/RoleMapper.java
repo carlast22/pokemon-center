@@ -1,9 +1,7 @@
 package com.pokemon.center.mapping.interfaces;
 
 import com.pokemon.center.mapping.dto.RoleDTO;
-import com.pokemon.center.mapping.dto.SymptomDTO;
 import com.pokemon.center.persistence.Role;
-import com.pokemon.center.persistence.Symptom;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
@@ -22,5 +20,6 @@ public interface RoleMapper {
 
     })
     RoleDTO entityToDto(Role role);
+
     List<RoleDTO> map(List<Role> role);
 }

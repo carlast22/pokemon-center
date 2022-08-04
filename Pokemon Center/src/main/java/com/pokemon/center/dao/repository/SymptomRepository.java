@@ -12,5 +12,6 @@ import java.util.List;
 @Transactional
 public interface SymptomRepository extends JpaRepository<Symptom, Integer>, JpaSpecificationExecutor<Symptom> {
     public Symptom findBySymId(int id);
+
     public List<Symptom> findBySymNameIgnoreCaseContains(String symptomNAme);
 }

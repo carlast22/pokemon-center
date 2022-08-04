@@ -27,4 +27,12 @@ public class PersonDao {
     public Person createPerson(Person person) {
         return personRepository.save(person);
     }
+
+    public Person findByPersonIdAndRoleId(int personId, int rolId) {
+        return personRepository.findPersonByPerIdAndPerRolIdRolId(personId, rolId);
+    }
+
+    public List<Person> findByPersonNameAndRoleId(String name, int rolId) {
+        return personRepository.findAllByPerNameIgnoreCaseContainsAndPerRolIdRolId(name, rolId);
+    }
 }
