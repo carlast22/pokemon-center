@@ -56,6 +56,12 @@
             <artifactId>persistence-pokemon-center</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.pokemon.center.utilities</groupId>
+            <artifactId>Utilities</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

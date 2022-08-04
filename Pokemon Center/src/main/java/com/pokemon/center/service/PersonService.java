@@ -4,6 +4,8 @@ import com.pokemon.center.dao.PersonDao;
 import com.pokemon.center.params.PersonParams;
 import com.pokemon.center.persistence.Person;
 import com.pokemon.center.persistence.Role;
+import com.pokemon.center.util.PokemonCenterResponse;
+import com.pokemon.center.utilities.exceptions.PokemonCenterException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +21,9 @@ public class PersonService {
     RoleService roleService;
 
     public Person findById(int id) {
-        Person person = null;
-        if (id > 0) {
-            person = personDao.findById(id);
+        Person person = personDao.findById(id);
+        if (null == person) {
+            throw new PokemonCenterException(PokemonCenterResponse.NO_RESULT_FOUND_BY_ID);
         }
         return person;
     }
@@ -36,6 +38,8 @@ public class PersonService {
         Person person = null;
         if (!identification.trim().isEmpty()) {
             person = personDao.findByIdentification(identification);
+        } else {
+            throw new PokemonCenterException(PokemonCenterResponse.INVALID_IDENTIFICATION);
         }
 
         return person;
@@ -44,6 +48,10 @@ public class PersonService {
     public Person createPerson(PersonParams personToCreate) {
         Person person = new Person();
 
+        if (null != personDao.findByIdentification(personToCreate.getIdentification())) {
+            throw new PokemonCenterException(PokemonCenterResponse.IDENTIFICATION_ALREADY_USED);
+        }
+
         if (null != personToCreate.getEmail() && !personToCreate.getEmail().isEmpty()) {
             person.setPerName(personToCreate.getName().trim());
             person.setPerLastName(personToCreate.getLastName().trim());
@@ -51,13 +59,15 @@ public class PersonService {
             person.setPerIdentification(personToCreate.getIdentification().trim());
             person.setPerPassword(personToCreate.getPassword().trim());
 
-            //TODO add custom exception handler
             Role role = roleService.findById(personToCreate.getRolId());
+            if (null == role) {
+                throw new PokemonCenterException(PokemonCenterResponse.ROLE_NOT_FOUND);
+            }
             person.setPerRolId(role);
 
             person = personDao.createPerson(person);
         } else {
-            return null;
+            throw new PokemonCenterException(PokemonCenterResponse.INVALID_PERSON_CREATION_PARAMS);
         }
 
         return person;
@@ -66,8 +76,10 @@ public class PersonService {
     public Person findByPersonIdAndRoleId(int personId, int rolId) {
         if (null != roleService.findById(rolId)) {
             return personDao.findByPersonIdAndRoleId(personId, rolId);
+        } else {
+            throw new PokemonCenterException(PokemonCenterResponse.ROLE_NOT_FOUND);
         }
-        return null;
+
     }
 
     public List<Person> findByPersonNameAndRoleId(String name, int rolId) {
