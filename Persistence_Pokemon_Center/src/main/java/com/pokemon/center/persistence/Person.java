@@ -1,5 +1,7 @@
 package com.pokemon.center.persistence;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -80,7 +82,9 @@ public class Person {
     }
 
     @Basic
+
     @Column(name = "per_created_at")
+    @CreatedDate
     public Timestamp getPerCreatedAt() {
         return perCreatedAt;
     }

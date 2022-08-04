@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.pokemon.center</groupId>
     <artifactId>persistence-pokemon-center</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>persistence_pokemon_center</name>
     <description>Persistence module for pokemon center project</description>
     <properties>

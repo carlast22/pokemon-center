@@ -1,5 +1,7 @@
 package com.pokemon.center.persistence;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -12,6 +14,7 @@ public class MedicalRecordTreatment {
     private Boolean medRecTreActive;
     private Treatment medRecTreTreId;
     private MedicalRecord medRecTreMedRecId;
+    private String medRecMedicine;
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -25,6 +28,7 @@ public class MedicalRecordTreatment {
     }
 
     @Basic
+    @CreatedDate
     @Column(name = "med_rec_tre_created_at")
     public Timestamp getMedRecTreCreatedAt() {
         return medRecTreCreatedAt;
@@ -75,5 +79,15 @@ public class MedicalRecordTreatment {
 
     public void setMedRecTreMedRecId(MedicalRecord medRecTreMedRecId) {
         this.medRecTreMedRecId = medRecTreMedRecId;
+    }
+
+    @Basic
+    @Column(name = "med_rec_medicine")
+    public String getMedRecMedicine() {
+        return medRecMedicine;
+    }
+
+    public void setMedRecMedicine(String medRecMedicine) {
+        this.medRecMedicine = medRecMedicine;
     }
 }

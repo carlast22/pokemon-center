@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "Medical_Record", schema = "pokemon_center")
+@Table(name = "Medical_Record", schema = "pokemon_center", catalog = "")
 public class MedicalRecord {
     private Integer medRecId;
     private Timestamp medRecArrivalDate;
@@ -14,6 +14,7 @@ public class MedicalRecord {
     private Timestamp medRecEndDate;
     private Person medRecPerId;
     private PokemonPerson medRecPokPerId;
+    private String medRecObservation;
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -97,5 +98,15 @@ public class MedicalRecord {
 
     public void setMedRecPokPerId(PokemonPerson medRecPokPerId) {
         this.medRecPokPerId = medRecPokPerId;
+    }
+
+    @Basic
+    @Column(name = "med_rec_observation")
+    public String getMedRecObservation() {
+        return medRecObservation;
+    }
+
+    public void setMedRecObservation(String medRecObservation) {
+        this.medRecObservation = medRecObservation;
     }
 }

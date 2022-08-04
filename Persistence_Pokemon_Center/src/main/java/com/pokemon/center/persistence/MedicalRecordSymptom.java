@@ -1,5 +1,7 @@
 package com.pokemon.center.persistence;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -36,6 +38,7 @@ public class MedicalRecordSymptom {
     }
 
     @Basic
+    @CreatedDate
     @Column(name = "med_rec_sym_created_at")
     public Timestamp getMedRecSymCreatedAt() {
         return medRecSymCreatedAt;
