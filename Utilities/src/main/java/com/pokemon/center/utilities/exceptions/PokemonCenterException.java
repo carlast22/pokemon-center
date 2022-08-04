@@ -2,7 +2,7 @@ package com.pokemon.center.utilities.exceptions;
 
 import com.pokemon.center.utilities.response.KeyResponseInterface;
 
-public class PokemonCenterException extends Exception {
+public class PokemonCenterException extends RuntimeException {
 
     //Variables to adapt the exception into the api envelope
     private String responseCode;
