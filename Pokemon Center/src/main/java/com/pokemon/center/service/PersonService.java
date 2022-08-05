@@ -3,7 +3,6 @@ package com.pokemon.center.service;
 import com.pokemon.center.dao.PersonDao;
 import com.pokemon.center.params.PersonParams;
 import com.pokemon.center.persistence.Person;
-import com.pokemon.center.persistence.Role;
 import com.pokemon.center.util.PokemonCenterResponse;
 import com.pokemon.center.utilities.exceptions.PokemonCenterException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,11 +58,7 @@ public class PersonService {
             person.setPerIdentification(personToCreate.getIdentification().trim());
             person.setPerPassword(personToCreate.getPassword().trim());
 
-            Role role = roleService.findById(personToCreate.getRolId());
-            if (null == role) {
-                throw new PokemonCenterException(PokemonCenterResponse.ROLE_NOT_FOUND);
-            }
-            person.setPerRolId(role);
+            person.setPerRolId(roleService.findById(personToCreate.getRolId()));
 
             person = personDao.createPerson(person);
         } else {
@@ -74,12 +69,7 @@ public class PersonService {
     }
 
     public Person findByPersonIdAndRoleId(int personId, int rolId) {
-        if (null != roleService.findById(rolId)) {
-            return personDao.findByPersonIdAndRoleId(personId, rolId);
-        } else {
-            throw new PokemonCenterException(PokemonCenterResponse.ROLE_NOT_FOUND);
-        }
-
+        return personDao.findByPersonIdAndRoleId(personId, roleService.findById(rolId).getRolId());
     }
 
     public List<Person> findByPersonNameAndRoleId(String name, int rolId) {

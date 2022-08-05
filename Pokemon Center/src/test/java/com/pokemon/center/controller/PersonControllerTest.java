@@ -184,13 +184,13 @@ class PersonControllerTest {
     }
 
     @Test
-    void whenValidPersonNameAndInvalidRoleIdAreSubmittedThenAEmptyPersonListShouldBeReturned() {
+    void whenValidPersonNameAndInvalidRoleIdAreSubmittedThenARoleNotFoundExceptionShouldBeThrown() {
         String name = this.validName;
         int rolId = -1;
-        ResponseEntity<Object> responseEntity = personController.findByPersonNameAndRoleId(name, rolId);
-        ResponseObject response = (ResponseObject) responseEntity.getBody();
-        List<PersonDTO> personDTOList = (List<PersonDTO>) response.getData();
-        Assertions.assertTrue(personDTOList.isEmpty());
+        PokemonCenterException exception = Assertions.assertThrows(PokemonCenterException.class, () -> personController.findByPersonNameAndRoleId(name, rolId));
+
+        Assertions.assertEquals(PokemonCenterResponse.ROLE_NOT_FOUND.getValue(), exception.getResponseCode());
+
     }
 
     @Test

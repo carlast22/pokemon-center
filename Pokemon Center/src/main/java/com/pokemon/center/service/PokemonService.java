@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 public class PokemonService {
 
     public PokemonModel getExternalPokemonByName(String name) {
-        String uri = "https://pokeapi.co/api/v2/pokemon/"+name;
+        String uri = "https://pokeapi.co/api/v2/pokemon/" + name;
         RestTemplate restTemplate = new RestTemplate();
         return restTemplate.getForObject(uri, PokemonModel.class);
     }
