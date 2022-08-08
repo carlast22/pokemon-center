@@ -5,9 +5,25 @@ import lombok.*;
 
 @Data
 public class PokemonModel {
-    public Integer getId() {
-        return id;
-    }
+    @JsonProperty("id")
+    private Integer id;
+
+    @JsonProperty("name")
+    private String name;
+
+    @JsonProperty("height")
+    private String height;
+
+    @JsonProperty("weight")
+    private String weight;
+
+    @JsonProperty("sprites")
+    private SpriteModel sprites;
+
+    @JsonProperty("species")
+    private BaseModel species;
+
+    public Integer getId() { return id; }
 
     public void setId(Integer id) {
         this.id = id;
@@ -45,18 +61,11 @@ public class PokemonModel {
         this.sprites = sprites;
     }
 
-    @JsonProperty("id")
-    private Integer id;
+    public BaseModel getSpecies() {
+        return species;
+    }
 
-    @JsonProperty("name")
-    private String name;
-
-    @JsonProperty("height")
-    private String height;
-
-    @JsonProperty("weight")
-    private String weight;
-
-    @JsonProperty("sprites")
-    private SpriteModel sprites;
+    public void setSpecies(BaseModel species) {
+        this.species = species;
+    }
 }
