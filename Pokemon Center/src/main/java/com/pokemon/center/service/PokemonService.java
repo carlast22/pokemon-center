@@ -7,6 +7,10 @@ import com.pokemon.center.persistence.Pokemon;
 import com.pokemon.center.util.PokemonCenterResponse;
 import com.pokemon.center.utilities.exceptions.PokemonCenterException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,14 +23,28 @@ public class PokemonService {
     PokemonDao pokemonDao;
 
     private PokemonModel getExternalPokemonByName(String name) {
+
         String uri = "https://pokeapi.co/api/v2/pokemon/" + name;
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("User-Agent", "RestTemplate");
+        HttpEntity<String> entity = new HttpEntity<String>(headers);
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(uri, PokemonModel.class);
+
+        ResponseEntity<PokemonModel> response = restTemplate.exchange(uri, HttpMethod.GET, entity, PokemonModel.class);
+
+        return response.getBody();
     }
 
     private PokemonSpeciesModel getExternalPokemonSpeciesByUrl(String uri) {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("User-Agent", "RestTemplate");
+        HttpEntity<String> entity = new HttpEntity<String>(headers);
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject(uri, PokemonSpeciesModel.class);
+
+        ResponseEntity<PokemonSpeciesModel> response = restTemplate.exchange(uri, HttpMethod.GET, entity, PokemonSpeciesModel.class);
+
+        return response.getBody();
     }
 
     public List<Pokemon> findAll() {
