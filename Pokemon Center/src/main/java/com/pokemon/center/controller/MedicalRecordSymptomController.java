@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(name = "medicalRecordSymptom")
+@RequestMapping(path = "medicalRecordSymptom")
 public class MedicalRecordSymptomController extends ResponseManager {
     @Autowired
     MedicalRecordSymptomService medicalRecordSymptomService;
