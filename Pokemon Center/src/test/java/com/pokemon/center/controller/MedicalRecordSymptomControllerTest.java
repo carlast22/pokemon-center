@@ -1,7 +1,6 @@
 package com.pokemon.center.controller;
 
 import com.pokemon.center.mapping.dto.MedicalRecordSymptomDTO;
-import com.pokemon.center.mapping.dto.PersonDTO;
 import com.pokemon.center.params.MedicalRecordSymptomParams;
 import com.pokemon.center.persistence.MedicalRecordSymptom;
 import com.pokemon.center.util.PokemonCenterResponse;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
-public class MedicalRecordSymptomTest {
+public class MedicalRecordSymptomControllerTest {
     @Autowired
     MedicalRecordSymptomController medicalRecordSymptomController;
 
