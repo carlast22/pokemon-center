@@ -22,6 +22,9 @@ public class MedicalRecordTreatmentService {
     @Autowired
     TreatmentService treatmentService;
 
+    @Autowired
+    MedicalRecordService medicalRecordService;
+
     public MedicalRecordTreatment create(MedicalRecordTreatmentParams medicalRecordTreatmentParams) {
         return medicalRecordTreatmentDao.create(medicalRecordTreatmentMapper(medicalRecordTreatmentParams));
     }
@@ -38,9 +41,8 @@ public class MedicalRecordTreatmentService {
         if (medicalRecordTreatmentParams.getMedicine().trim().isEmpty()) {
             throw new PokemonCenterException(PokemonCenterResponse.INVALID_MEDICAL_RECORD_TREATMENT_CREATION_PARAMS);
         }
-        //TODO complete when ready
-        MedicalRecord medicalRecord = new MedicalRecord();
-        medicalRecord.setMedRecId(medicalRecordTreatmentParams.getMedicalRecordId());
+
+        MedicalRecord medicalRecord = medicalRecordService.findById(medicalRecordTreatmentParams.getMedicalRecordId());
 
         Treatment treatment = treatmentService.findById(medicalRecordTreatmentParams.getTreatmentId());
 
@@ -63,9 +65,7 @@ public class MedicalRecordTreatmentService {
 
     public List<MedicalRecordTreatment> findByMedicalRecordId(int medicalRecordId) {
 
-        //Todo complete when ready
-        MedicalRecord medicalRecord = new MedicalRecord();
-        medicalRecord.setMedRecId(medicalRecordId);
+        MedicalRecord medicalRecord = medicalRecordService.findById(medicalRecordId);
         return medicalRecordTreatmentDao.findByMedicalRecordId(medicalRecord);
     }
 }

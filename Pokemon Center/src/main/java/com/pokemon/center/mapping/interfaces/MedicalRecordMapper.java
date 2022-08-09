@@ -29,15 +29,12 @@ public interface MedicalRecordMapper {
             @Mapping(target = "trainer.lastName", source = "medRecPokPerId.pokPerPerId.perLastName"),
             @Mapping(target = "trainer.email", source = "medRecPokPerId.pokPerPerId.perEmail"),
 
-            //TODO change to dto when ready
-            @Mapping(target = "pokemon.pokName", source = "medRecPokPerId.pokPerPokId.pokName"),
-            @Mapping(target = "pokemon.pokImage", source = "medRecPokPerId.pokPerPokId.pokImage"),
+            @Mapping(target = "pokemon.name", source = "medRecPokPerId.pokPerPokId.pokName"),
+            @Mapping(target = "pokemon.image", source = "medRecPokPerId.pokPerPokId.pokImage"),
 
-
-            //TODO change to dto when ready
-            @Mapping(target = "trainerPokemon.pokPerNickname", source = "medRecPokPerId.pokPerNickname"),
-            @Mapping(target = "trainerPokemon.pokPerHeight", source = "medRecPokPerId.pokPerHeight"),
-            @Mapping(target = "trainerPokemon.pokPerWeight", source = "medRecPokPerId.pokPerWeight"),
+            @Mapping(target = "trainerPokemon.pokemonNickname", source = "medRecPokPerId.pokPerNickname"),
+            @Mapping(target = "trainerPokemon.height", source = "medRecPokPerId.pokPerHeight"),
+            @Mapping(target = "trainerPokemon.weight", source = "medRecPokPerId.pokPerWeight"),
 
     })
     MedicalRecordDTO entityToDto(MedicalRecord medicalRecord);

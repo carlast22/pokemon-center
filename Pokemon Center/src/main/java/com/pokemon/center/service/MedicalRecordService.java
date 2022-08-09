@@ -22,11 +22,13 @@ public class MedicalRecordService {
     @Autowired
     PersonService personService;
 
+    @Autowired
+    PokemonPersonService pokemonPersonService;
+
     public MedicalRecord create(MedicalRecordParams medicalRecordParams) {
         Person doctor = personService.findById(medicalRecordParams.getDoctorId());
         //TOOD change when ready
-        PokemonPerson pokemonPerson = new PokemonPerson();
-        pokemonPerson.setPokPerId(1);
+        PokemonPerson pokemonPerson = pokemonPersonService.findById(medicalRecordParams.getPokemonPersonId());
 
         MedicalRecord medicalRecord = new MedicalRecord();
         medicalRecord.setMedRecDiagnostic(medicalRecordParams.getDiagnostic());
@@ -67,9 +69,8 @@ public class MedicalRecordService {
     }
 
     public List<MedicalRecord> findByPokemonPersonId(int pokemonPersonId) {
-        //Todo change when ready
-        PokemonPerson pokemonPerson = new PokemonPerson();
-        pokemonPerson.setPokPerId(pokemonPersonId);
+
+        PokemonPerson pokemonPerson = pokemonPersonService.findById(pokemonPersonId);
         return medicalRecordDao.findByPokemonPersonId(pokemonPerson);
     }
 

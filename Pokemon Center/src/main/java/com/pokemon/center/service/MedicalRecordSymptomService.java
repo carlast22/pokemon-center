@@ -22,22 +22,22 @@ public class MedicalRecordSymptomService {
     @Autowired
     MedicalRecordSymptomDao medicalRecordSymptomDao;
 
+    @Autowired
+    MedicalRecordService medicalRecordService;
+
     public MedicalRecordSymptom create(MedicalRecordSymptomParams medicalRecordSymptomParams) {
         return medicalRecordSymptomDao.createMedicalRecordSymptom(medicalRecordSymtomMapper(medicalRecordSymptomParams));
     }
 
     private MedicalRecordSymptom medicalRecordSymtomMapper(MedicalRecordSymptomParams medicalRecordSymptomParams) {
-        //TODO validate medical record not null
-        //MedicalRecord medicalRecord = medicalRecordService.findById(medicalRecordSymptomParams.getMedicalRecordId());
+
+        MedicalRecord medicalRecord = medicalRecordService.findById(medicalRecordSymptomParams.getMedicalRecordId());
 
         Symptom symptom = symptomService.findById(medicalRecordSymptomParams.getSymptomId());
         MedicalRecordSymptom medicalRecordSymptom = new MedicalRecordSymptom();
         medicalRecordSymptom.setMedRecSymActive(true);
         medicalRecordSymptom.setMedRecSymDiagnosticsPeriod(medicalRecordSymptomParams.getDiagnosticPeriod());
         medicalRecordSymptom.setMedRecSymSymId(symptom);
-        //TODO remove when ready
-        MedicalRecord medicalRecord = new MedicalRecord();
-        medicalRecord.setMedRecId(1);
         medicalRecordSymptom.setMedRecSymMedRecId(medicalRecord);
         return medicalRecordSymptom;
     }
@@ -59,10 +59,7 @@ public class MedicalRecordSymptomService {
     }
 
     public List<MedicalRecordSymptom> findByMedicalRecordId(int medicalRecordId) {
-        //TODO validate medical record not null
-        MedicalRecord medicalRecord = new MedicalRecord();
-        medicalRecord.setMedRecId(medicalRecordId);
-
+        MedicalRecord medicalRecord = medicalRecordService.findById(medicalRecordId);
         return medicalRecordSymptomDao.findByMedicalRecordId(medicalRecord);
     }
 }

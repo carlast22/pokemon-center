@@ -88,7 +88,8 @@ public class MedicalRecordTreatmentControllerTest {
         medicalRecordTreatmentParams.setTreatmentId(1);
         medicalRecordTreatmentParams.setMedicine("Paracetamol 600mg, 1 cada 8 horas");
         PokemonCenterException exception = Assertions.assertThrows(PokemonCenterException.class, () -> medicalRecordTreatmentController.create(medicalRecordTreatmentParams));
-        //TODO complete when ready
+        Assertions.assertEquals(PokemonCenterResponse.MEDICAL_RECORD_NOT_FOUND.getValue(), exception.getResponseCode());
+
     }
 
     @Test

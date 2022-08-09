@@ -57,8 +57,7 @@ public class MedicalRecordSymptomControllerTest {
 
     }
 
-    //TODO complete where medical record controller is ready
-   /* @Test
+    @Test
     void whenInvalidMedicalRecordIdForSymptomDetailCreationUIsSubmittedThenExceptionShouldBeThrown() {
         double diagnosticPeriod = 1.5;
         int medicalRecordId = -1;
@@ -72,7 +71,7 @@ public class MedicalRecordSymptomControllerTest {
         PokemonCenterException exception = Assertions.assertThrows(PokemonCenterException.class, () -> medicalRecordSymptomController.create(medicalRecordSymptomParams));
         Assertions.assertEquals(PokemonCenterResponse.MEDICAL_RECORD_NOT_FOUND.getValue(), exception.getResponseCode());
 
-    }*/
+    }
 
     @Test
     void whenMultipleMedicalRecordSymptomsAreSubmitedThenAListOfRecordsShouldBeReturned(){
@@ -148,7 +147,10 @@ public class MedicalRecordSymptomControllerTest {
 
     @Test
     void whenInvalidMedicalRecordIdIsSubmittedThenExceptionShouldBeThrown(){
-        //TODO complete when medical record service is ready
+        int medicalRecordId = -1;
+        PokemonCenterException exception = Assertions.assertThrows(PokemonCenterException.class, () -> medicalRecordSymptomController.findByMedicalRecordId(medicalRecordId));
+        Assertions.assertEquals(PokemonCenterResponse.MEDICAL_RECORD_NOT_FOUND.getValue(), exception.getResponseCode());
+
     }
 
 

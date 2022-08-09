@@ -17,9 +17,9 @@ public class MedicalRecordDTO {
     private PersonDTO doctor;
     private PersonDTO trainer;
 
-    //TODO change when ready
-    private PokemonPerson trainerPokemon;
-    private Pokemon pokemon;
+
+    private PokemonPersonDTO trainerPokemon;
+    private PokemonDTO pokemon;
 
     public int getMedicalRecordId() {
         return medicalRecordId;
@@ -85,19 +85,19 @@ public class MedicalRecordDTO {
         this.trainer = trainer;
     }
 
-    public PokemonPerson getTrainerPokemon() {
+    public PokemonPersonDTO getTrainerPokemon() {
         return trainerPokemon;
     }
 
-    public void setTrainerPokemon(PokemonPerson trainerPokemon) {
+    public void setTrainerPokemon(PokemonPersonDTO trainerPokemon) {
         this.trainerPokemon = trainerPokemon;
     }
 
-    public Pokemon getPokemon() {
+    public PokemonDTO getPokemon() {
         return pokemon;
     }
 
-    public void setPokemon(Pokemon pokemon) {
+    public void setPokemon(PokemonDTO pokemon) {
         this.pokemon = pokemon;
     }
 }
