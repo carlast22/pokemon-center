@@ -84,7 +84,7 @@ public class PokemonService {
 
                 PokemonSpeciesModel pokemonSpeciesModel = getExternalPokemonSpeciesByUrl(pokemonModel.getSpecies().getUrl());
 
-                if(null == pokemonSpeciesModel ){
+                if (null == pokemonSpeciesModel ){
                     throw new PokemonCenterException(PokemonCenterResponse.POKEMON_SPECIES_NOT_FOUND);
                 }
                 pokemon.setPokApiId(pokemonModel.getId());
