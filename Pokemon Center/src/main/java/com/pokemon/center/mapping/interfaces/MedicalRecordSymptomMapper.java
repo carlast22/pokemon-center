@@ -1,9 +1,7 @@
 package com.pokemon.center.mapping.interfaces;
 
 import com.pokemon.center.mapping.dto.MedicalRecordSymptomDTO;
-import com.pokemon.center.mapping.dto.SymptomDTO;
 import com.pokemon.center.persistence.MedicalRecordSymptom;
-import com.pokemon.center.persistence.Symptom;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
 
@@ -25,7 +23,6 @@ public interface MedicalRecordSymptomMapper {
             @Mapping(target = "symptomDTO.name", source = "medRecSymSymId.symName"),
             @Mapping(target = "symptomDTO.description", source = "medRecSymSymId.symDescription"),
     })
-
     MedicalRecordSymptomDTO entityToDto(MedicalRecordSymptom medicalRecordSymptom);
 
     List<MedicalRecordSymptomDTO> map(List<MedicalRecordSymptom> medicalRecordSymptomList);

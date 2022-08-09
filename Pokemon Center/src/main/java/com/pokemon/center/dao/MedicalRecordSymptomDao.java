@@ -13,7 +13,7 @@ public class MedicalRecordSymptomDao {
     @Autowired
     MedicalRecordSymptomRepository medicalRecordSymptomRepository;
 
-    public MedicalRecordSymptom createMedicalRecordSymptom(MedicalRecordSymptom medicalRecordSymptom){
+    public MedicalRecordSymptom createMedicalRecordSymptom(MedicalRecordSymptom medicalRecordSymptom) {
         return medicalRecordSymptomRepository.save(medicalRecordSymptom);
     }
 

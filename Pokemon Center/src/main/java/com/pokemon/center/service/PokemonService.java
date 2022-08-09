@@ -27,7 +27,7 @@ public class PokemonService {
         String uri = "https://pokeapi.co/api/v2/pokemon/" + name;
         HttpHeaders headers = new HttpHeaders();
         headers.set("User-Agent", "RestTemplate");
-        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<PokemonModel> response = restTemplate.exchange(uri, HttpMethod.GET, entity, PokemonModel.class);
@@ -39,7 +39,7 @@ public class PokemonService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("User-Agent", "RestTemplate");
-        HttpEntity<String> entity = new HttpEntity<String>(headers);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
         RestTemplate restTemplate = new RestTemplate();
 
         ResponseEntity<PokemonSpeciesModel> response = restTemplate.exchange(uri, HttpMethod.GET, entity, PokemonSpeciesModel.class);
@@ -70,23 +70,26 @@ public class PokemonService {
     public Pokemon createPokemon(PokemonParams pokemonToCreate) {
         Pokemon pokemon = new Pokemon();
 
-        if(pokemonToCreate.getName() != null){
+        if (pokemonToCreate.getName() != null) {
 
             Pokemon existingPokemon = pokemonDao.findByName(pokemonToCreate.getName());
 
-            if(existingPokemon != null){
+            if (existingPokemon != null) {
                 throw new PokemonCenterException(PokemonCenterResponse.POKEMON_ALREADY_EXISTS);
             }
 
             PokemonModel pokemonModel = getExternalPokemonByName(pokemonToCreate.getName());
 
-            if(pokemonModel != null){
+            if (pokemonModel != null) {
 
                 PokemonSpeciesModel pokemonSpeciesModel = getExternalPokemonSpeciesByUrl(pokemonModel.getSpecies().getUrl());
 
+                if(null == pokemonSpeciesModel ){
+                    throw new PokemonCenterException(PokemonCenterResponse.POKEMON_SPECIES_NOT_FOUND);
+                }
                 pokemon.setPokApiId(pokemonModel.getId());
                 pokemon.setPokName(pokemonModel.getName());
-                pokemon.setPokImage(pokemonModel.getSprites().getFront_default());
+                pokemon.setPokImage(pokemonModel.getSprites().getFrontDefault());
                 pokemon.setPokSpecies(pokemonModel.getSpecies().getName());
                 pokemon.setPokColors(pokemonSpeciesModel.getColor().getName());
                 pokemon.setPokShape(pokemonSpeciesModel.getShape().getName());
@@ -94,10 +97,10 @@ public class PokemonService {
 
                 pokemon = pokemonDao.createPokemon(pokemon);
 
-            }else{
+            } else {
                 throw new PokemonCenterException(PokemonCenterResponse.POKEMON_NOT_FOUND_IN_EXTERNAL_API);
             }
-        }else{
+        } else {
             throw new PokemonCenterException(PokemonCenterResponse.INVALID_POKEMON_CREATION_PARAMS);
         }
 

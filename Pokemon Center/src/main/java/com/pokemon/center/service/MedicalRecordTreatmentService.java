@@ -1,7 +1,6 @@
 package com.pokemon.center.service;
 
 import com.pokemon.center.dao.MedicalRecordTreatmentDao;
-import com.pokemon.center.params.MedicalRecordSymptomParams;
 import com.pokemon.center.params.MedicalRecordTreatmentParams;
 import com.pokemon.center.persistence.MedicalRecord;
 import com.pokemon.center.persistence.MedicalRecordTreatment;
@@ -29,14 +28,14 @@ public class MedicalRecordTreatmentService {
 
     public List<MedicalRecordTreatment> createMultiple(List<MedicalRecordTreatmentParams> medicalRecordTreatmentParams) {
         List<MedicalRecordTreatment> medicalRecordTreatmentList = new ArrayList<>();
-        for (MedicalRecordTreatmentParams medicalRecordTreatmentParam : medicalRecordTreatmentParams ) {
+        for (MedicalRecordTreatmentParams medicalRecordTreatmentParam : medicalRecordTreatmentParams) {
             medicalRecordTreatmentList.add(medicalRecordTreatmentMapper(medicalRecordTreatmentParam));
         }
         return medicalRecordTreatmentDao.createMultiple(medicalRecordTreatmentList);
     }
 
-    private MedicalRecordTreatment medicalRecordTreatmentMapper(MedicalRecordTreatmentParams medicalRecordTreatmentParams){
-        if(medicalRecordTreatmentParams.getMedicine().trim().isEmpty()){
+    private MedicalRecordTreatment medicalRecordTreatmentMapper(MedicalRecordTreatmentParams medicalRecordTreatmentParams) {
+        if (medicalRecordTreatmentParams.getMedicine().trim().isEmpty()) {
             throw new PokemonCenterException(PokemonCenterResponse.INVALID_MEDICAL_RECORD_TREATMENT_CREATION_PARAMS);
         }
         //TODO complete when ready
@@ -56,17 +55,17 @@ public class MedicalRecordTreatmentService {
 
     public MedicalRecordTreatment findById(int id) {
         MedicalRecordTreatment medicalRecordTreatment = medicalRecordTreatmentDao.findById(id);
-        if(null == medicalRecordTreatment){
+        if (null == medicalRecordTreatment) {
             throw new PokemonCenterException(PokemonCenterResponse.MEDICAL_RECORD_TREATMENT_NOT_FOUND);
         }
-        return  medicalRecordTreatment;
+        return medicalRecordTreatment;
     }
 
     public List<MedicalRecordTreatment> findByMedicalRecordId(int medicalRecordId) {
 
         //Todo complete when ready
         MedicalRecord medicalRecord = new MedicalRecord();
-        medicalRecord.setMedRecId(1);
+        medicalRecord.setMedRecId(medicalRecordId);
         return medicalRecordTreatmentDao.findByMedicalRecordId(medicalRecord);
     }
 }

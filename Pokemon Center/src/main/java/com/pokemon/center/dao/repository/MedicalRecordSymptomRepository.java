@@ -1,6 +1,5 @@
 package com.pokemon.center.dao.repository;
 
-import com.pokemon.center.dao.MedicalRecordSymptomDao;
 import com.pokemon.center.persistence.MedicalRecord;
 import com.pokemon.center.persistence.MedicalRecordSymptom;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,5 +13,6 @@ import java.util.List;
 @Transactional
 public interface MedicalRecordSymptomRepository extends JpaRepository<MedicalRecordSymptom, Integer>, JpaSpecificationExecutor<MedicalRecordSymptom> {
     MedicalRecordSymptom findMedicalRecordSymptomByMedRecSymId(int id);
+
     List<MedicalRecordSymptom> findMedicalRecordSymptomsByMedRecSymMedRecId(MedicalRecord medicalRecordId);
 }

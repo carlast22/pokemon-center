@@ -12,5 +12,6 @@ import java.util.List;
 @Transactional
 public interface MedicalRecordTreatmentRepository extends JpaRepository<MedicalRecordTreatment, Integer> {
     MedicalRecordTreatment findMedicalRecordTreatmentByMedRecTreId(int id);
+
     List<MedicalRecordTreatment> findMedicalRecordTreatmentsByMedRecTreMedRecId(MedicalRecord medicalRecord);
 }

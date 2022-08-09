@@ -5,24 +5,24 @@ import lombok.Data;
 
 @Data
 public class SpriteModel {
-    public String getBack_default() {
-        return back_default;
+    public String getBackDefault() {
+        return backDefault;
     }
 
-    public void setBack_default(String back_default) {
-        this.back_default = back_default;
+    public void setBackDefault(String backDefault) {
+        this.backDefault = backDefault;
     }
 
-    public String getFront_default() {
-        return front_default;
+    public String getFrontDefault() {
+        return frontDefault;
     }
 
-    public void setFront_default(String front_default) {
-        this.front_default = front_default;
+    public void setFrontDefault(String frontDefault) {
+        this.frontDefault = frontDefault;
     }
 
     @JsonProperty("back_default")
-    private String back_default;
+    private String backDefault;
     @JsonProperty("front_default")
-    private String front_default;
+    private String frontDefault;
 }

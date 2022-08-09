@@ -2,7 +2,6 @@ package com.pokemon.center.controller;
 
 import com.pokemon.center.mapping.interfaces.MedicalRecordTreatmentMapper;
 import com.pokemon.center.params.MedicalRecordTreatmentParams;
-import com.pokemon.center.persistence.MedicalRecordTreatment;
 import com.pokemon.center.service.MedicalRecordTreatmentService;
 import com.pokemon.center.util.PokemonCenterResponse;
 import com.pokemon.center.utilities.response.ResponseManager;
@@ -34,6 +33,7 @@ public class MedicalRecordTreatmentController extends ResponseManager {
     public ResponseEntity<Object> findById(@PathVariable(name = "id") int id) {
         return getResponseEntity(PokemonCenterResponse.SUCCESSFUL_TRANSACTION, MedicalRecordTreatmentMapper.INSTANCE.entityToDto(medicalRecordTreatmentService.findById(id)));
     }
+
     @GetMapping(value = "findByMedicalRecordId/{medicalRecordId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> findByMedicalRecordId(@PathVariable(name = "medicalRecordId") int medicalRecordId) {
         return getResponseEntity(PokemonCenterResponse.SUCCESSFUL_TRANSACTION, MedicalRecordTreatmentMapper.INSTANCE.map(medicalRecordTreatmentService.findByMedicalRecordId(medicalRecordId)));

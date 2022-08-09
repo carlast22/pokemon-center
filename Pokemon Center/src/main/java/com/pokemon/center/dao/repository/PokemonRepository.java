@@ -12,5 +12,6 @@ import javax.transaction.Transactional;
 public interface PokemonRepository extends JpaRepository<Pokemon, Integer>, JpaSpecificationExecutor<Pokemon> {
 
     Pokemon findPokemonByPokId(int id);
+
     Pokemon findPokemonByPokName(String name);
 }

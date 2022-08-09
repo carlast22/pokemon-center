@@ -23,7 +23,9 @@ public class PokemonModel {
     @JsonProperty("species")
     private BaseModel species;
 
-    public Integer getId() { return id; }
+    public Integer getId() {
+        return id;
+    }
 
     public void setId(Integer id) {
         this.id = id;

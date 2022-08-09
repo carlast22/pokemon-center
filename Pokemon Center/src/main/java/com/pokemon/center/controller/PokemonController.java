@@ -2,7 +2,6 @@ package com.pokemon.center.controller;
 
 import com.pokemon.center.mapping.dto.PokemonDTO;
 import com.pokemon.center.mapping.interfaces.PokemonMapper;
-import com.pokemon.center.mapping.interfaces.RoleMapper;
 import com.pokemon.center.params.PokemonParams;
 import com.pokemon.center.service.PokemonService;
 import com.pokemon.center.util.PokemonCenterResponse;

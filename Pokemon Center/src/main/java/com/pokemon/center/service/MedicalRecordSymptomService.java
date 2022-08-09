@@ -26,12 +26,12 @@ public class MedicalRecordSymptomService {
         return medicalRecordSymptomDao.createMedicalRecordSymptom(medicalRecordSymtomMapper(medicalRecordSymptomParams));
     }
 
-    private MedicalRecordSymptom medicalRecordSymtomMapper(MedicalRecordSymptomParams medicalRecordSymptomParams){
+    private MedicalRecordSymptom medicalRecordSymtomMapper(MedicalRecordSymptomParams medicalRecordSymptomParams) {
         //TODO validate medical record not null
         //MedicalRecord medicalRecord = medicalRecordService.findById(medicalRecordSymptomParams.getMedicalRecordId());
 
         Symptom symptom = symptomService.findById(medicalRecordSymptomParams.getSymptomId());
-        MedicalRecordSymptom medicalRecordSymptom =  new MedicalRecordSymptom();
+        MedicalRecordSymptom medicalRecordSymptom = new MedicalRecordSymptom();
         medicalRecordSymptom.setMedRecSymActive(true);
         medicalRecordSymptom.setMedRecSymDiagnosticsPeriod(medicalRecordSymptomParams.getDiagnosticPeriod());
         medicalRecordSymptom.setMedRecSymSymId(symptom);
@@ -40,11 +40,11 @@ public class MedicalRecordSymptomService {
         medicalRecord.setMedRecId(1);
         medicalRecordSymptom.setMedRecSymMedRecId(medicalRecord);
         return medicalRecordSymptom;
-    };
+    }
 
     public List<MedicalRecordSymptom> createList(List<MedicalRecordSymptomParams> medicalRecordSymptomParamsList) {
         List<MedicalRecordSymptom> medicalRecordSymptomList = new ArrayList<>();
-        for (MedicalRecordSymptomParams medicalRecordSymptomParams : medicalRecordSymptomParamsList ) {
+        for (MedicalRecordSymptomParams medicalRecordSymptomParams : medicalRecordSymptomParamsList) {
             medicalRecordSymptomList.add(medicalRecordSymtomMapper(medicalRecordSymptomParams));
         }
         return medicalRecordSymptomDao.createMedicalRecordSymptoms(medicalRecordSymptomList);
@@ -52,10 +52,10 @@ public class MedicalRecordSymptomService {
 
     public MedicalRecordSymptom findById(int medicalRecordSymptonId) {
         MedicalRecordSymptom medicalRecordSymptom = medicalRecordSymptomDao.findById(medicalRecordSymptonId);
-        if(null == medicalRecordSymptom){
+        if (null == medicalRecordSymptom) {
             throw new PokemonCenterException(PokemonCenterResponse.MEDICAL_RECORD_SYMPTOM_NOT_FOUND);
         }
-        return  medicalRecordSymptom;
+        return medicalRecordSymptom;
     }
 
     public List<MedicalRecordSymptom> findByMedicalRecordId(int medicalRecordId) {

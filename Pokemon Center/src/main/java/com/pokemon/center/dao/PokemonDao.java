@@ -15,9 +15,16 @@ public class PokemonDao {
     public List<Pokemon> findAll() {
         return pokemonRepository.findAll();
     }
+
     public Pokemon findById(int id) {
         return pokemonRepository.findPokemonByPokId(id);
     }
-    public Pokemon findByName(String name) {return pokemonRepository.findPokemonByPokName(name); }
-    public Pokemon createPokemon(Pokemon pokemon) { return pokemonRepository.save(pokemon); }
+
+    public Pokemon findByName(String name) {
+        return pokemonRepository.findPokemonByPokName(name);
+    }
+
+    public Pokemon createPokemon(Pokemon pokemon) {
+        return pokemonRepository.save(pokemon);
+    }
 }
