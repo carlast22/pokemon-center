@@ -1,9 +1,5 @@
 steps:
-  - name: maven:3.6.0-jdk-11-slim
+  # Install dependencies and run tests
+  - name: gcr.io/cloud-builders/mvn
     entrypoint: 'mvn'
-    args: ['clean', 'install', '-f', './Pokemon Center/pom.xml']
-    dir: 'pokemon-center'
-
-  - name: maven:3.6.0-jdk-11-slim
-    entrypoint: 'mvn'
-    args: [ 'tests' ]
+    args: [ 'package', '-Dmaven.test.skip' ]
