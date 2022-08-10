@@ -3,4 +3,4 @@ spring:
     name: service-Eureka-Pokemon-Center
   cloud:
     config:
-      uri: http://35.224.27.126:8888
+      uri: http://10.128.0.2:8888
