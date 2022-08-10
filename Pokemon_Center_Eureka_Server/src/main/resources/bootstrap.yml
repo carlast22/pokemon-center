@@ -1,6 +1,6 @@
 spring:
   application:
-    name: eureka-server-easyfood
+    name: service-Eureka-Pokemon-Center
   cloud:
     config:
-      uri: http://localhost:8888
+      uri: http://35.224.27.126:8888
