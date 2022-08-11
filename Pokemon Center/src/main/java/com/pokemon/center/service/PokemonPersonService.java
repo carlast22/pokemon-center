@@ -41,7 +41,7 @@ public class PokemonPersonService
 
     public List<PokemonPerson> findByPokemonNickname(String pokemonNickname){
         List<PokemonPerson> pokemonPerson = pokemonPersonDao.findByPokemonNickname(pokemonNickname);
-        if (null == pokemonPerson) {
+        if (pokemonPerson.size() == 0) {
             throw new PokemonCenterException(PokemonCenterResponse.NO_RESULT_FOUND_BY_NICKNAME);
         }
         return pokemonPerson;

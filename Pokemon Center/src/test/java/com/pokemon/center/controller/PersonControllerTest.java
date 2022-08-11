@@ -21,7 +21,6 @@ class PersonControllerTest {
     @Autowired
     PersonController personController;
 
-
     int validPersonId;
     String validName;
     String validLastName;
@@ -60,35 +59,36 @@ class PersonControllerTest {
 
         Assertions.assertEquals(this.validPersonId, personDTO.getId());
         Assertions.assertEquals(this.validIdentification, personDTO.getIdentification());
-
     }
 
     @Test
     void whenInvalidPersonIdIsSubmittedThenNoResultsFoundExceptionShouldBeReturned() {
         int id = -1;
-        PokemonCenterException exception = Assertions.assertThrows(PokemonCenterException.class , ()-> personController.findById(id))  ;
-        Assertions.assertEquals(PokemonCenterResponse.NO_RESULT_FOUND_BY_ID.getValue(), exception.getResponseCode());
 
+        PokemonCenterException exception = Assertions.assertThrows(PokemonCenterException.class , ()-> personController.findById(id));
+
+        Assertions.assertEquals(PokemonCenterResponse.NO_RESULT_FOUND_BY_ID.getValue(), exception.getResponseCode());
     }
 
     @Test
     void whenExistentNameIsSubmittedForSearchThenAPersonListShouldBeReturned() {
         String name = this.validName;
+
         ResponseEntity<Object> responseEntity = personController.findByName(name);
         ResponseObject response = (ResponseObject) responseEntity.getBody();
         List<PersonDTO> personDTOList = (List<PersonDTO>) response.getData();
+
         Assertions.assertTrue(!personDTOList.isEmpty());
         System.out.println(personDTOList);
     }
 
     @Test
-    void whenUnexistentNameIsSubmittedForSearchThenAEmptyListShouldBeReturned() {
+    void whenUnexistentNameIsSubmittedForSearchThenNoResultFoundByNameShouldBeReturned() {
         String name = "jhon";
-        ResponseEntity<Object> responseEntity = personController.findByName(name);
-        ResponseObject response = (ResponseObject) responseEntity.getBody();
-        List<PersonDTO> personDTOList = (List<PersonDTO>) response.getData();
-        Assertions.assertTrue(personDTOList.isEmpty());
-        System.out.println(personDTOList);
+
+        PokemonCenterException exception = Assertions.assertThrows(PokemonCenterException.class, ()-> personController.findByName(name));
+
+        Assertions.assertEquals(PokemonCenterResponse.NO_RESULT_FOUND_BY_NAME.getValue(), exception.getResponseCode());
     }
 
     @Test
@@ -103,20 +103,17 @@ class PersonControllerTest {
     }
 
     @Test
-    void whenUnexistentIdentificationIsSubmittedForSearchThenAEmptyPersonShouldBeReturned() throws PokemonCenterException {
+    void whenUnexistentIdentificationIsSubmittedForSearchThenNoResultFoundByIdentificationExceptionShouldBeReturned() throws PokemonCenterException {
         String identification = "9876543210";
 
-        ResponseEntity<Object> responseEntity = personController.findByIdentification(identification);
-        ResponseObject response = (ResponseObject) responseEntity.getBody();
-        PersonDTO personDTO = (PersonDTO) response.getData();
+        PokemonCenterException exception = Assertions.assertThrows(PokemonCenterException.class, ()-> personController.findByIdentification(identification));
 
-        Assertions.assertTrue(personDTO.getIdentification().isEmpty());
+        Assertions.assertEquals(PokemonCenterResponse.NO_RESULT_FOUND_BY_IDENTIFICATION.getValue(), exception.getResponseCode());
     }
 
     @Test
     void whenCreateUserIsCalledTheUserShouldBeCreated() throws PokemonCenterException {
         PersonParams userParams = new PersonParams();
-
         userParams.setName("Juan");
         userParams.setLastName("Perez");
         userParams.setEmail("jg@tw.com");
@@ -127,6 +124,7 @@ class PersonControllerTest {
         ResponseEntity<Object> responseEntity = personController.createUser(userParams);
         ResponseObject response = (ResponseObject) responseEntity.getBody();
         PersonDTO personDTO = (PersonDTO) response.getData();
+
         Assertions.assertEquals(userParams.getName(), personDTO.getName());
         Assertions.assertEquals(userParams.getLastName(), personDTO.getLastName());
         Assertions.assertEquals(userParams.getIdentification(), personDTO.getIdentification());
@@ -141,8 +139,6 @@ class PersonControllerTest {
         PokemonCenterException exception = Assertions.assertThrows(PokemonCenterException.class, ()-> personController.createUser(userParams));
 
         Assertions.assertEquals(PokemonCenterResponse.INVALID_PERSON_CREATION_PARAMS.getValue(), exception.getResponseCode());
-
-
     }
 
     @Test
@@ -153,9 +149,9 @@ class PersonControllerTest {
         ResponseEntity<Object> responseEntity = personController.findByPersonIdAndRoleId(personId, rolId);
         ResponseObject response = (ResponseObject) responseEntity.getBody();
         PersonDTO personDTO = (PersonDTO) response.getData();
+
         Assertions.assertEquals(personId, personDTO.getId());
         Assertions.assertEquals(rolId, personDTO.getRole().getId());
-
     }
 
     @Test
@@ -166,6 +162,7 @@ class PersonControllerTest {
         ResponseEntity<Object> responseEntity = personController.findByPersonNameAndRoleId(name, rolId);
         ResponseObject response = (ResponseObject) responseEntity.getBody();
         List<PersonDTO> personDTOList = (List<PersonDTO>) response.getData();
+
         for (PersonDTO personDTO : personDTOList) {
             Assertions.assertEquals(rolId, personDTO.getRole().getId());
         }
@@ -179,27 +176,29 @@ class PersonControllerTest {
         ResponseEntity<Object> responseEntity = personController.findByPersonNameAndRoleId(name, rolId);
         ResponseObject response = (ResponseObject) responseEntity.getBody();
         List<PersonDTO> personDTOList = (List<PersonDTO>) response.getData();
-        Assertions.assertTrue(personDTOList.isEmpty());
 
+        Assertions.assertTrue(personDTOList.isEmpty());
     }
 
     @Test
     void whenValidPersonNameAndInvalidRoleIdAreSubmittedThenARoleNotFoundExceptionShouldBeThrown() {
         String name = this.validName;
         int rolId = -1;
+
         PokemonCenterException exception = Assertions.assertThrows(PokemonCenterException.class, () -> personController.findByPersonNameAndRoleId(name, rolId));
 
         Assertions.assertEquals(PokemonCenterResponse.ROLE_NOT_FOUND.getValue(), exception.getResponseCode());
-
     }
 
     @Test
     void whenEmptyPersonNameAndValidRoleIdAreSubmittedThenAEmptyPersonListShouldBeReturned() {
         String name = "";
         int rolId = -1;
+
         ResponseEntity<Object> responseEntity = personController.findByPersonNameAndRoleId(name, rolId);
         ResponseObject response = (ResponseObject) responseEntity.getBody();
         List<PersonDTO> personDTOList = (List<PersonDTO>) response.getData();
+
         Assertions.assertTrue(personDTOList.isEmpty());
     }
 

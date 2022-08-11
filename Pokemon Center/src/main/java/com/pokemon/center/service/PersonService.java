@@ -30,15 +30,21 @@ public class PersonService {
     public List<Person> findByName(String name) {
         List<Person> personList = null;
         personList = personDao.findByName(name);
+        if (personList.size() == 0) {
+            throw new PokemonCenterException(PokemonCenterResponse.NO_RESULT_FOUND_BY_NAME);
+        }
         return personList;
     }
 
     public Person findByIdentification(String identification) {
         Person person = null;
-        if (!identification.trim().isEmpty()) {
-            person = personDao.findByIdentification(identification);
-        } else {
+
+        if (identification.trim().isEmpty()) {
             throw new PokemonCenterException(PokemonCenterResponse.INVALID_IDENTIFICATION);
+        }
+        person = personDao.findByIdentification(identification);
+        if (null == person) {
+            throw new PokemonCenterException(PokemonCenterResponse.NO_RESULT_FOUND_BY_IDENTIFICATION);
         }
 
         return person;
