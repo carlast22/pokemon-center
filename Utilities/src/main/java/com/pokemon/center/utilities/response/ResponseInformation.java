@@ -3,6 +3,7 @@ package com.pokemon.center.utilities.response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,16 @@ import java.util.Properties;
  */
 @Service
 public class ResponseInformation {
+    @Value("${spring.cloud.client.hostname}")
+    String hostName;
+
+    @Value("${spring.application.name}")
+    String applicationName;
+
     @Autowired
     private MessageSource messages;
     private static final String RESPONSE_PROPERTIES = "responseCodes.properties";
+
     Properties properties = new Properties();
     private static final Logger logger = LoggerFactory.getLogger(ResponseInformation.class);
 
@@ -50,4 +58,15 @@ public class ResponseInformation {
     }
 
 
+    public String getHostName() {
+        return hostName;
+    }
+
+    public String getApplicationName() {
+        return applicationName;
+    }
+
+    public String getAppInfo(){
+        return getApplicationName()+"@"+getHostName();
+    }
 }

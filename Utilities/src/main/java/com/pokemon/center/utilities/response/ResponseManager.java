@@ -34,6 +34,7 @@ public class ResponseManager {
         responseObject.setData(responseData);
         responseObject.setMessage(responseInformation.getResponseMessage(responseCode));
         responseObject.setStatus(httpStatus.value());
+        responseObject.setAppInfo(responseInformation.getAppInfo());
         return new ResponseEntity<>(responseObject, httpStatus);
     }
 
@@ -43,6 +44,7 @@ public class ResponseManager {
         responseObjectAbstract.setMessage(responseInformation.getResponseMessage(responseCode));
         responseObjectAbstract.setData(responseData);
         responseObjectAbstract.setCode(responseInformation.getResponseCode(responseCode));
+        responseObjectAbstract.setAppInfo(responseInformation.getAppInfo());
         return new ResponseEntity<>(responseObjectAbstract, httpStatus);
     }
 

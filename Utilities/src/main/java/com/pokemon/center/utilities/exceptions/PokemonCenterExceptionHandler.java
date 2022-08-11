@@ -32,9 +32,10 @@ public class PokemonCenterExceptionHandler {
         if (null != exception.getResponseCode()) {
             String code = responseInformation.getResponseCode(exception.getResponseCode());
             String message = responseInformation.getResponseMessage(exception.getResponseCode());
-            responseObject = new ResponseObject(HttpStatus.NOT_FOUND.value(), code, message, exception.getData());
+            String appInfo = responseInformation.getAppInfo();
+            responseObject = new ResponseObject(HttpStatus.NOT_FOUND.value(), code, message, exception.getData(), appInfo);
         } else {
-            responseObject = new ResponseObject(HttpStatus.NOT_FOUND.value(), exception.getCodeValue(), exception.getMessageValue(), exception.getData());
+            responseObject = new ResponseObject(HttpStatus.NOT_FOUND.value(), exception.getCodeValue(), exception.getMessageValue(), exception.getData(), responseInformation.getAppInfo());
         }
         logger.info(String.format("PokemonCenterException : %s", exception.toString()));
         return new ResponseEntity<>(responseObject, HttpStatus.NOT_FOUND);
@@ -50,7 +51,7 @@ public class PokemonCenterExceptionHandler {
     public ResponseEntity<Object> exception(Exception exception) {
         logger.info(String.format("Exception : %s", exception.toString()));
         exception.printStackTrace();
-        ResponseObject responseObject = new ResponseObject(HttpStatus.NOT_FOUND.value(), "ERROR", exception.toString(), null);
+        ResponseObject responseObject = new ResponseObject(HttpStatus.NOT_FOUND.value(), "ERROR", exception.toString(), null, responseInformation.getAppInfo());
         return new ResponseEntity<>(responseObject, HttpStatus.NOT_FOUND);
     }
 
@@ -64,7 +65,7 @@ public class PokemonCenterExceptionHandler {
     public ResponseEntity<Object> exception(HttpMessageNotReadableException exception) {
         logger.info(String.format("Exception : %s", exception.toString()));
         exception.printStackTrace();
-        ResponseObject responseObject = new ResponseObject(HttpStatus.NOT_FOUND.value(), "ERROR", "Error procesing data", null);
+        ResponseObject responseObject = new ResponseObject(HttpStatus.NOT_FOUND.value(), "ERROR", "Error procesing data", null, responseInformation.getAppInfo());
         return new ResponseEntity<>(responseObject, HttpStatus.NOT_FOUND);
     }
 
