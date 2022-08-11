@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: service-Gateway-Pokemon-Center
+  cloud:
+    config:
+      uri: http://10.128.0.2:8888
+
+
