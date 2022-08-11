@@ -1,11 +1,20 @@
 package com.pokemon.center.mapping.dto;
 
 public class PokemonPersonDTO {
+    private int pokemonPersonId;
     private int personId;
     private int pokemonId;
     private String pokemonNickname;
     private double height;
     private double weight;
+
+    public int getPokemonPersonId() {
+        return pokemonPersonId;
+    }
+
+    public void setPokemonPersonId(int pokemonPersonId) {
+        this.pokemonPersonId = pokemonPersonId;
+    }
 
     public int getPersonId() {
         return personId;

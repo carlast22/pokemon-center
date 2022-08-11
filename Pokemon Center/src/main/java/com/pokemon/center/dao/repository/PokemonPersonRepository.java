@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -13,6 +14,6 @@ public interface PokemonPersonRepository extends JpaRepository<PokemonPerson, In
 
     PokemonPerson findPokemonPersonByPokPerId(int id);
 
-    PokemonPerson findPokemonPersonByPokPerNickname(String nickname);
+    List<PokemonPerson> findPokemonPersonByPokPerNickname(String nickname);
 
 }

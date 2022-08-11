@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "pokemonPerson")
 public class PokemonPersonController extends ResponseManager {
@@ -25,7 +27,7 @@ public class PokemonPersonController extends ResponseManager {
 
     @GetMapping(value = "findByPokemonNickname/{nickname}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> findByPokemonNickname(@PathVariable(name = "nickname") String nickname) {
-        PokemonPersonDTO pokemonPersonDTO = PokemonPersonMapper.INSTANCE.entityToDto(pokemonPersonService.findByPokemonNickname(nickname));
+        List<PokemonPersonDTO> pokemonPersonDTO = PokemonPersonMapper.INSTANCE.map(pokemonPersonService.findByPokemonNickname(nickname));
         return getResponseEntity(PokemonCenterResponse.SUCCESSFUL_TRANSACTION, pokemonPersonDTO);
     }
 

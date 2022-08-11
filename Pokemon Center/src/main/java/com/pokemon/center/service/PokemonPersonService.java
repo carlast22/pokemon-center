@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class PokemonPersonService
@@ -38,8 +39,8 @@ public class PokemonPersonService
         return pokemonPerson;
     }
 
-    public PokemonPerson findByPokemonNickname(String pokemonNickname){
-        PokemonPerson pokemonPerson = pokemonPersonDao.findByPokemonNickname(pokemonNickname);
+    public List<PokemonPerson> findByPokemonNickname(String pokemonNickname){
+        List<PokemonPerson> pokemonPerson = pokemonPersonDao.findByPokemonNickname(pokemonNickname);
         if (null == pokemonPerson) {
             throw new PokemonCenterException(PokemonCenterResponse.NO_RESULT_FOUND_BY_NICKNAME);
         }
@@ -57,10 +58,9 @@ public class PokemonPersonService
             throw new PokemonCenterException(PokemonCenterResponse.INVALID_POKEMON_PERSON_CREATION_PARAMS);
         }
 
-        PokemonPerson existingPokemonPerson = pokemonPersonDao.findByPokemonNickname(pokemonPersonParams.getPokemonNickname());
-
-        if(existingPokemonPerson != null){
-            throw new PokemonCenterException(PokemonCenterResponse.POKEMON_NICKNAME_ALREADY_EXISTS);
+        Pokemon pokemon = pokemonDao.findById(pokemonPersonParams.getPokemonId());
+        if(pokemon == null){
+            throw new PokemonCenterException(PokemonCenterResponse.POKEMON_NOT_EXISTS);
         }
 
         Person person = personDao.findById(pokemonPersonParams.getPersonId());
@@ -68,9 +68,14 @@ public class PokemonPersonService
             throw new PokemonCenterException(PokemonCenterResponse.PERSON_NOT_EXISTS);
         }
 
-        Pokemon pokemon = pokemonDao.findById(pokemonPersonParams.getPokemonId());
-        if(pokemon == null){
-            throw new PokemonCenterException(PokemonCenterResponse.POKEMON_NOT_EXISTS);
+        List<PokemonPerson> existingPokemonPersons = pokemonPersonDao.findByPokemonNickname(pokemonPersonParams.getPokemonNickname());
+
+        for (PokemonPerson item:
+             existingPokemonPersons) {
+            if(item.getPokPerPerId().getPerId().equals(person.getPerId())
+                    && item.getPokPerNickname().equals(pokemonPersonParams.getPokemonNickname())){
+                throw new PokemonCenterException(PokemonCenterResponse.POKEMON_NICKNAME_ALREADY_EXISTS);
+            }
         }
 
         pokemonPerson.setPokPerPerId(person);

@@ -13,6 +13,7 @@ public interface PokemonPersonMapper {
     PokemonPersonMapper INSTANCE = Mappers.getMapper(PokemonPersonMapper.class);
 
     @Mappings({
+            @Mapping(target = "pokemonPersonId", source = "pokPerId"),
             @Mapping(target = "personId", source = "pokPerPerId.perId"),
             @Mapping(target = "pokemonId", source = "pokPerPokId.pokId"),
             @Mapping(target = "pokemonNickname", source = "pokPerNickname"),

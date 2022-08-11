@@ -17,7 +17,7 @@ public class PokemonPersonDao {
 
     public PokemonPerson findById (int id) {return  pokemonPersonRepository.findPokemonPersonByPokPerId(id); }
 
-    public PokemonPerson findByPokemonNickname (String pokemonNickname) { return pokemonPersonRepository.findPokemonPersonByPokPerNickname(pokemonNickname); }
+    public List<PokemonPerson> findByPokemonNickname (String pokemonNickname) { return pokemonPersonRepository.findPokemonPersonByPokPerNickname(pokemonNickname); }
 
     public PokemonPerson createPokemonPerson (PokemonPerson pokemonPerson) { return pokemonPersonRepository.save(pokemonPerson); }
 }
