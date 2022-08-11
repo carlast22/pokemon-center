@@ -3,3 +3,10 @@ steps:
   - name: gcr.io/cloud-builders/mvn
     entrypoint: 'mvn'
     args: [ 'package', '-Dmaven.test.skip' ]
+
+  # Build docker image and push to registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/pokemon-center-358215/pokemon-center/pokemon-image:tag1', './Pokemon Center' ]
+images:
+  - 'us-central1-docker.pkg.dev/pokemon-center-358215/pokemon-center/pokemon-image:tag1'
+
