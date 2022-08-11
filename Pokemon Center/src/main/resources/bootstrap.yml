@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: service-Pokemon-Center
+  cloud:
+    config:
+      uri: http://10.128.0.2:8888
+    gcp:
+      secretmanager:
+        enabled: true
+        project-id: pokemon-center-358215
+
+
+
