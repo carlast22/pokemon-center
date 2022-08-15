@@ -7,6 +7,10 @@ steps:
   # Build docker image and push to registry
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'us-central1-docker.pkg.dev/pokemon-center-358215/pokemon-center/pokemon-image:tag1', './Pokemon Center' ]
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: [ 'compute', 'instance-groups', 'managed', 'rolling-action', 'replace', 'instance-group-cicd ', '--zone=us-central1-a' ]
+
 images:
   - 'us-central1-docker.pkg.dev/pokemon-center-358215/pokemon-center/pokemon-image:tag1'
 

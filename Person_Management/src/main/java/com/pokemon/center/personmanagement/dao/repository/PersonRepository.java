@@ -10,5 +10,5 @@ import javax.transaction.Transactional;
 @Transactional
 public interface PersonRepository extends JpaRepository<Person, Long>, JpaSpecificationExecutor<Person> {
     Person findPersonByPerId(int idPerson);
-    Person findPersonByPerEmailAndPerPasswordAndPerActiveIsTrue(String email, String password);
+    Person findPersonByPerEmailAndPerPassword(String email, String password);
 }

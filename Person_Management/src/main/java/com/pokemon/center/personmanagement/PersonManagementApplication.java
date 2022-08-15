@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 
 //anotacion para indicarle a spring donde debe buscar clases anotadas
-@ComponentScan(basePackages = {"com.pokemon.center.personmanagement.*"})
+@ComponentScan(basePackages = {"com.pokemon.center.personmanagement.*", "com.pokemon.center.utilities.*"})
 //utilizamos esta anotacion para decirle a spring que busque en este paquete las entidades
 @EntityScan(basePackages = { "com.pokemon.center.persistence"})
 //Le indicamos la ruta donde tenemos las clases anotadas como repositorie
